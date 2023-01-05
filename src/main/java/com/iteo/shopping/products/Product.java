@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ class Product {
     private Money basePrice;
 
 
-    public static Product createEmptyProduct(String name, Integer price) {
+    public static Product createEmptyProduct(String name, BigDecimal price) {
         Product product = new Product();
         product.id = UUID.randomUUID();
         product.name = name;

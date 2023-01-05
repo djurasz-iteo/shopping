@@ -9,6 +9,6 @@ class OrderFixture {
         for (final def discountId in discountIds) {
             discounts.append("\"$discountId\"")
         }
-        return """{ "productId": "$productId", "quantity": 10, "discountIds": [$discounts] }"""
+        return """{ "productId": "$productId", "quantity": 1, "discountIds": [$discounts] }"""
     }
 }

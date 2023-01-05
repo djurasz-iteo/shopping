@@ -28,14 +28,14 @@ class ProductService {
     }
 
     public List<ProductView> findAll() {
-        return StreamSupport.stream(productRepository.findAll().spliterator(), false)
+        return productRepository.findAll().stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
 
     }
 
     private ProductView mapToDto(Product product) {
-        return new ProductView(product.getId(), product.getName(), product.getBasePrice().toInt());
+        return new ProductView(product.getId(), product.getName(), product.getBasePrice().toBigDecimal());
     }
 
 

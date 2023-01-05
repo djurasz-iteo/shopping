@@ -18,7 +18,7 @@ class Order {
     private ProductToBuy product;
     private Money price;
 
-    private OrderState state;
+    private Money initialPrice;
 
     private List<OrderEvent> events;
 
@@ -32,7 +32,7 @@ class Order {
         Order order = new Order();
         order.product = product;
         order.price = product.getBasePrice().multiply(product.getQuantity());
-        order.state = OrderState.PREVIEW;
+        order.initialPrice = new Money(order.price.toBigDecimal());
         order.events = new ArrayList<>();
         order.orderDiscountPolicies = allCurrentPolicies();
         return order;
@@ -88,6 +88,10 @@ class Order {
 
     public Money getTotalPrice() {
         return this.price;
+    }
+
+    public Money getInitialPrice() {
+        return this.initialPrice;
     }
 
     public UUID getProductId() {

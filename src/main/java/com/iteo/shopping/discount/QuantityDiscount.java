@@ -3,6 +3,7 @@ package com.iteo.shopping.discount;
 import com.iteo.shopping.shared.Money;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -36,4 +37,4 @@ public class QuantityDiscount implements Discount {
 
 }
 
-record QuantityDiscountProperties(HashMap<Integer, Integer> discounts) implements DiscountProperties {}
+record QuantityDiscountProperties(Map<Integer, Integer> discounts) implements DiscountProperties {}

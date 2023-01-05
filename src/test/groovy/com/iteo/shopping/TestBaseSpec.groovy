@@ -26,7 +26,7 @@ import spock.lang.Specification
 class TestBaseSpec extends Specification {
 
     @Autowired
-    List<JpaRepository<?, ?>> repositories;
+    List<JpaRepository<?, ?>> repositories
     @Autowired
     ProductRepository productRepository
     @Autowired

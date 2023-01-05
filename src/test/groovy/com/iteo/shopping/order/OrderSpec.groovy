@@ -20,7 +20,7 @@ class OrderSpec extends Specification {
             def aProduct = someProduct(productId)
             def aDiscount = percent50Discount(discountId)
             def anotherDiscount = percent12Discount(discountId)
-            def severalDiscounts = List.of(aDiscount, anotherDiscount)
+            def severalDiscounts = [aDiscount, anotherDiscount]
 
         when:
             def order = Order.preview(aProduct)
@@ -29,7 +29,7 @@ class OrderSpec extends Specification {
 
         then:
             order.events.size() == 0
-            order.totalPrice.equals(BASE_PRICE)
+            order.totalPrice == BASE_PRICE
     }
 
     def "should not accept next discount when previous one was processed"() {
@@ -47,7 +47,7 @@ class OrderSpec extends Specification {
 
         then:
         order.events.size() == 1
-        order.totalPrice.equals(new Money(5))
+        order.totalPrice == new Money(BigDecimal.valueOf(5))
 
         when:
         order.acceptEvent(new DiscountEvent(List.of(anotherDiscount)))
@@ -55,7 +55,7 @@ class OrderSpec extends Specification {
 
         then:
         order.events.size() == 1
-        order.totalPrice.equals(new Money(5))
+        order.totalPrice == new Money(BigDecimal.valueOf(5))
     }
 
     def "Should apply a 50% discount on item"() {
@@ -71,7 +71,7 @@ class OrderSpec extends Specification {
             order.processDiscountEvent()
 
         then:
-            order.totalPrice.equals(new Money(5))
+        order.totalPrice == new Money(BigDecimal.valueOf(5))
     }
 
     def "Should apply a 12% discount on item"() {
@@ -87,7 +87,7 @@ class OrderSpec extends Specification {
         order.processDiscountEvent()
 
         then:
-        order.totalPrice.equals(new Money(9))
+        order.totalPrice == new Money(BigDecimal.valueOf(9))
     }
 
     def "Should apply a 100% discount on item"() {
@@ -103,7 +103,7 @@ class OrderSpec extends Specification {
         order.processDiscountEvent()
 
         then:
-        order.totalPrice.equals(new Money(0))
+        order.totalPrice == new Money(BigDecimal.ZERO)
     }
 
     def "Should apply quantity discount when there are more then 3 products"() {
@@ -119,14 +119,14 @@ class OrderSpec extends Specification {
 
         then:
         order.events.size() == 0
-        order.totalPrice.equals(new Money(30))
+        order.totalPrice == new Money(BigDecimal.valueOf(30))
 
         when:
         order.acceptEvent(new DiscountEvent(List.of(aDiscount)))
         order.processDiscountEvent()
 
         then:
-        order.totalPrice.equals(new Money(9))
+        order.totalPrice == new Money(BigDecimal.valueOf(9))
     }
 
     def "Should apply better quantity discount when there are more then 5 products"() {
@@ -141,14 +141,14 @@ class OrderSpec extends Specification {
         def order = Order.preview(aProduct)
 
         then:
-        order.totalPrice.equals(new Money(50))
+        order.totalPrice == new Money(BigDecimal.valueOf(50))
 
         when:
         order.acceptEvent(new DiscountEvent(List.of(aDiscount)))
         order.processDiscountEvent()
 
         then:
-        order.totalPrice.equals(new Money(15))
+        order.totalPrice == new Money(BigDecimal.valueOf(15))
     }
 
 

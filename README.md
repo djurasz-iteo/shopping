@@ -5,14 +5,10 @@
 
 ## Run
 ```bash
-# run postgres instance
-docker compose up -d 
-
-#run the app
-mvnw spring-boot:run
+docker compose up 
 ```
 
-Application should be ready to go! 
+Now the application is up and running, it's available via port 8080 on localhost. 
 
 ## Functionalities
 ### Core
@@ -26,6 +22,4 @@ Application should be ready to go!
 - `GET /v1/product` - get all products
 
 Each endpoint is listed in postman collection included in folder named `postman` in root directory. Feel free to play around!
-
-
 

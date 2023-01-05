@@ -39,7 +39,7 @@ class OrderManager {
 
         applyDiscounts(order, discounts);
 
-        return new OrderSummary(order.getProductId(), order.getTotalPrice().toInt());
+        return new OrderSummary(order.getProductId(), order.getTotalPrice().toString(), order.getInitialPrice().toString());
 
     }
 
@@ -66,5 +66,5 @@ class OrderManager {
     }
 }
 
-record OrderSummary(UUID productId, Integer price) {
+record OrderSummary(UUID productId, String price, String initialPrice) {
 }

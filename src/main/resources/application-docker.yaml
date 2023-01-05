@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/shopping
+    username: postgres
+    password: postgres
+  liquibase:
+    change-log: classpath:liquibase/master.yml
+
+
+db.seeder: true

@@ -1,6 +1,7 @@
 package com.iteo.shopping.products;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,30 +28,13 @@ class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductView> createProduct(@RequestBody ProductDto dto) {
-        return ResponseEntity.ok(productFacade.createAProduct(dto));
+        return ResponseEntity.status(HttpStatus.CREATED.value()).body(productFacade.createAProduct(dto));
     }
-
-//    @PutMapping("/{id}/discounts/{discountId}")
-//    public ResponseEntity<ProductResponse> activateDiscount(@PathVariable("id") String productId, @PathVariable("discountId") String discountId) {
-//        var saved = productRepository.findById(UUID.fromString(productId))
-//                .map(product -> product.activateDiscount(discountId))
-//                .map(productRepository::save)
-//                .orElseThrow(() -> new EntityNotFoundException("Product with id %s doesn't exists".formatted(productId)));
-//        return ResponseEntity.ok(mapToDto(saved));
-//    }
 
     @GetMapping
     public ResponseEntity<List<ProductView>> getProducts() {
         return ResponseEntity.ok(productFacade.findAllProducts());
     }
-
-//    @GetMapping("/{id}/price")
-//    public ResponseEntity<Price> calculatePrice (@PathVariable("id") String productId, @RequestParam Integer quantity) {
-//        var product = productRepository.findById(UUID.fromString(productId)).orElseThrow(() -> new EntityNotFoundException("Product with id %s doesn't exists".formatted(productId)));
-//        Price expectedCost = discountFacade.previewCostAfterDiscount(new Price(product.getBasePrice()), quantity, product.getActiveDiscountId().toString());
-//        return ResponseEntity.ok(expectedCost);
-//    }
-
 
 }
 

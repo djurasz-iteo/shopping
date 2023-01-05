@@ -4,6 +4,7 @@ import com.iteo.shopping.shared.Money;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
@@ -19,12 +20,13 @@ class PercentageDiscount implements Discount {
 
     @Override
     public Money calculateDiscountedPrice(Money price) {
-        return price.percentage(configuration.percentage());
+        Money toSubtract = price.percentage(BigDecimal.valueOf(configuration.percentage()));
+        return price.subtract(toSubtract);
     }
 
     @Override
     public Money calculateDiscountedPrice(Money totalPrice, Integer quantity) {
-        Money toSubtract = totalPrice.percentage(configuration.percentage());
+        Money toSubtract = totalPrice.percentage(BigDecimal.valueOf(configuration.percentage()));
         return totalPrice.subtract(toSubtract);
     }
 }
