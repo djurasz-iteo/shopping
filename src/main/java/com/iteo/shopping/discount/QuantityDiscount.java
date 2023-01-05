@@ -3,10 +3,7 @@ package com.iteo.shopping.discount;
 import com.iteo.shopping.shared.Money;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 public class QuantityDiscount implements Discount {
@@ -26,10 +23,10 @@ public class QuantityDiscount implements Discount {
 
     @Override
     public Money calculateDiscountedPrice(Money totalPrice, Integer quantity) {
-        SortedSet<Integer> sortedSet = new TreeSet<>(properties.discountLevels().keySet()).descendingSet();
+        SortedSet<Integer> sortedSet = new TreeSet<>(properties.discounts().keySet()).descendingSet();
         for (Integer key : sortedSet) {
             if(quantity >= key) {
-                Money toSubtract = totalPrice.percentage(properties.discountLevels().get(key));
+                Money toSubtract = totalPrice.percentage(properties.discounts().get(key));
                 return totalPrice.subtract(toSubtract);
             }
         }
@@ -39,4 +36,4 @@ public class QuantityDiscount implements Discount {
 
 }
 
-record QuantityDiscountProperties(Map<Integer, Integer> discountLevels) implements DiscountProperties {}
+record QuantityDiscountProperties(HashMap<Integer, Integer> discounts) implements DiscountProperties {}
