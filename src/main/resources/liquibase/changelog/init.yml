@@ -1,0 +1,13 @@
+databaseChangeLog:
+    -   changeSet:
+            id: PRODUCT
+            author: djurasz
+            changes:
+                -   sqlFile:
+                        path: liquibase/sql/PRODUCT.sql
+    -   changeSet:
+          id: DISCOUNT
+          author: djurasz
+          changes:
+            -   sqlFile:
+                  path: liquibase/sql/DISCOUNT.sql
